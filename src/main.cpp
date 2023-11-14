@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <stdio.h>
+#include <fstream>
+#include <cstring>
 
 using namespace std;
 
@@ -14,23 +16,36 @@ int main()
     cout << "Enter a valid path to delete file: ";
     cin >> uspath;
 
-    cout << "Are you sure you wanna delete " << uspath << " (Yes / no)?: ";
+    cout << "Are you sure you want tow delete " << uspath << " (Yes / no)?: ";
     cin >> confirmed;
 
-    // проверяем на уверенность в удалении файла
-    if(confirmed == "Yes") {
+    // проверяем на правильность потдверждения
+    if(!(confirmed == "Yes" || confirmed == "no")) {
+        cout << "Error: invalid argument while confirm deleting\n";
+        return 1;
+    }
 
+    // проверяем на уверенность в удалении файла
+    else if(confirmed == "Yes") {
+        
+        // проверяем на существование файла
+        if(ifstream(uspath)) {
         //проверяем на успех удаления
-        if(remove(uspath.c_str()) == 0) {
-            cout << "File deleted sucsessfuly\n";
+            if(remove(uspath.c_str()) == 0) {
+                cout << "File deleted sucsessfuly\n";
+            }
+            else {
+                cerr << "Error: (" << remove(uspath.c_str()) << " code)\n";
+                return 1;
+            }
         }
         else {
-            cerr << "Error while deleting file\n";
+            cerr << "Error: file don't exist\n";
+            return 1;
         }
-        
     }
     else {
-        cout << "File deleting canceled\n";
+        cerr << "File deleting canceled\n";
     }
 
     return 0;

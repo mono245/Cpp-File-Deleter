@@ -1,8 +1,6 @@
 #include <iostream>
-#include <string>
 #include <stdio.h>
 #include <fstream>
-#include <cstring>
 
 using namespace std;
 
@@ -16,7 +14,7 @@ int main()
     cout << "Enter a valid path to delete file: ";
     cin >> uspath;
 
-    cout << "Are you sure you want tow delete " << uspath << " (Yes / no)?: ";
+    cout << "Are you sure you want to delete " << uspath << " (Yes / no)?: ";
     cin >> confirmed;
 
     // проверяем на правильность потдверждения
